@@ -21,17 +21,17 @@ img2_url = 'Images\IMG_0836.jpg'
 faces = {}
 
 faces = CF.face.detect(img1_url)
-faces.append(CF.face.detect(img2_url))
-print(faces)
-#print(faces[0])
-#print(faces[1])
+faces.append(CF.face.detect(img2_url)[0])
+#print(faces)
+print(faces[0])
+print(faces[1])
 
-'''
-if faces[0].faceId == faces[1].faceId:
+
+if faces[0].get('faceId') == faces[1].get('faceId'):
     print('Same faces')
 else:
     print('Different Faces')
-'''
+
 #print(faces[0].get('faceRectangle'))
 #print(faces[1].get('faceRectangle'))
 
