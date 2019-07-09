@@ -1,5 +1,6 @@
 import requests
-import json
+#import json
+from PIL import Image 
 
 subscription_key = '0af57de2a87249e19e11c118b0ba3ab8'
 assert subscription_key
@@ -17,5 +18,7 @@ params = {
 }
 
 response = requests.post(face_api_url, params=params,
-                         headers=headers, json={"url": image_url})
-print(json.dumps(response.json()))
+                         headers=headers, data = image_url)
+# response.raise_for_status()
+faces = response.json()
+print(faces)
