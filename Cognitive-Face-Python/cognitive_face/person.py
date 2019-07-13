@@ -41,6 +41,7 @@ def add_face(image,
     params = {
         'userData': user_data,
         'targetFace': target_face,
+        'detectionModel' : 'detection_02'
     }
 
     return util.request(

@@ -17,8 +17,7 @@ params = {
     'returnFaceAttributes': 'age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise',
 }
 
-response = requests.post(face_api_url, params=params,
-                         headers=headers, data = image_url)
+response = requests.post(face_api_url, params=params, headers=headers, data = image_url)
 # response.raise_for_status()
 faces = response.json()
 print(faces)
