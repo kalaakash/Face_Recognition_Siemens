@@ -29,7 +29,6 @@ faces.append(CF.face.detect(img2_url)[0])
 print(faces[0])
 print(faces[1])
 
-
 if faces[0].get('faceId') == faces[1].get('faceId'):
     print('Same faces')
 else:
