@@ -100,7 +100,7 @@ def verify_face():
         people_in_group = CF.person.lists(group_to_train)
         for index in people_in_group:
             rate_confidence = CF.face.verify(face_id = req_face_id, person_group_id=group_to_train, person_id= index["personId"])
-            print(rate_confidence["confidence"])
+            print(index["name"] + " : "+str(100*rate_confidence["confidence"]))
             if(rate_confidence["isIdentical"] == True):
                 print("Person verified is " + index["name"])
                 print(rate_confidence["confidence"]*100)
@@ -130,24 +130,50 @@ def add_face():
             print("No such group found")
     print(correct_group)
     if correct_group:
-        req_person_id = 0
-        people_in_group = CF.person.lists(req_group_name)
-        for index in people_in_group:
-            print(index["name"])
-        req_name = input("Enter name of person to which face should be added to in " + req_group_name + " : ")
-        for index in people_in_group:
-            if index["name"] == req_name:
-                req_person_id = index["personId"]
-        img_link = input("Choose image link to verify : ")
-        CF.person.add_face(img_link,req_group_name,req_person_id)
-        print("Face added to person " + req_name)
-        print("")
+        add_face_to_group(req_group_name)
     else:
         choose_again = input("Choose group again? ")
         if choose_again == "Yes" or choose_again == "Y" or choose_again == "T":
             print("")
             print("")
             add_face()
+
+def add_face_to_group(req_group_name):
+    req_person_id = 0
+    people_in_group = CF.person.lists(req_group_name)
+    for index in people_in_group:
+        print(index["name"])
+    req_name = input("Enter name of person to which face should be added to in " + req_group_name + " : ")
+    for index in people_in_group:
+        if index["name"] == req_name:
+            req_person_id = index["personId"]
+    add_face_to_person(req_group_name,req_person_id,req_name)
+    add_face_again = input("Put another image for same person? : ")
+    if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
+        add_face_to_person(req_group_name,req_person_id,req_name)
+        add_face_again = input("Put another image for same person? : ")
+        if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
+            add_face_to_person(req_group_name,req_person_id,req_name)
+            add_face_again = input("Put another image for same person? : ")
+            if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
+                add_face_to_person(req_group_name,req_person_id,req_name)
+                add_face_again = input("Put another image for same person? : ")
+                if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
+                    add_face_to_person(req_group_name,req_person_id,req_name)
+                    add_face_again = input("Put another image for same person? : ")
+                    if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
+                        add_face_to_person(req_group_name,req_person_id,req_name)
+    
+    
+    
+        
+
+def add_face_to_person(req_group_name,req_person_id,req_name):
+    img_link = input("Choose image link to insert : ")
+    CF.person.add_face(img_link,req_group_name,req_person_id)
+    print("Face added to person " + req_name)
+    print("")
+
 
 '''
 img_link = input("Choose image link to verify : ")

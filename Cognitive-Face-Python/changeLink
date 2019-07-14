@@ -1,0 +1,5 @@
+echo $1
+#initial_location=C:\Users\kalaa\OneDrive\Pictures\Logitech/ Webcam/Picture/ $1.jpg
+#final_location=C:\Users\kalaa\OneDrive\Pictures\Logitech/ Webcam/$1.jpg
+#mv $initial_location $final_location
+mv ../../../../Pictures/Logitech\ Webcam/Picture\ $1.jpg ../../../../Pictures/Logitech\ Webcam/$1.jpg
