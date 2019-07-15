@@ -1,6 +1,8 @@
 #import pandas as pd
 import time
 import cognitive_face as CF
+from gtts import gTTS
+import os
 
 # Replace with a valid subscription key (keeping the quotes in place).
 
@@ -20,7 +22,12 @@ CF.BaseUrl.set(BASE_URL)
 
 choose_group_again = True
 def add_person():
-    print("ADD PERSON \n\n")
+    speak_text = "HELLO! PLEASE ADD PERSON"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("add.mp3")
+    os.system("mpg321 add.mp3")
+    print("ADD PERSON\n\n")
     print("Choose which group you want to add the person to : ")
     groups = CF.person_group.lists()
     for index in groups:
@@ -41,6 +48,11 @@ def add_person():
         req_name = input("Enter name of person to be added to " + req_group_name + " ")
         print(req_name)
         CF.person.create(req_group_name,req_name)
+        speak_text = "HELLO! PERSON HAS BEEN ADDED"
+        language = 'en'
+        myobj = gTTS(text=speak_text, lang=language, slow=False)
+        myobj.save("added.mp3")
+        os.system("mpg321 added.mp3")
         add_face()
     else:
         choose_again = input("Choose group again? ")
@@ -51,7 +63,12 @@ def add_person():
 
 do_train = False
 def train_group():
-    print("TRAIN GROUP \n\n")
+    speak_text = "HELLO! TIME TO TRAIN A GROUP"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("train.mp3")
+    os.system("mpg321 train.mp3")
+    print("TRAIN GROUP\n\n")
     global do_train
     groups = CF.person_group.lists()
     for index in groups:
@@ -70,6 +87,11 @@ def train_group():
     if correct_group:
         print("Training group " + group_to_train)
         CF.person_group.train(group_to_train)
+        speak_text = "HELLO! GROUP HAS BEEN TRAAINED"
+        language = 'en'
+        myobj = gTTS(text=speak_text, lang=language, slow=False)
+        myobj.save("trained.mp3")
+        os.system("mpg321 trained.mp3")
     else:
         choose_again = input("Choose group again? ")
         if choose_again == "Yes" or choose_again == "Y" or choose_again == "T":
@@ -78,7 +100,13 @@ def train_group():
             train_group()
 
 def verify_face():
-    print("VERIFY PERSON \n\n")
+    isIdentified = False
+    speak_text = "HELLO! TIME TO IDENTIFY A FACE"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("identify.mp3")
+    os.system("mpg321 identify.mp3")
+    print(speak_text + "\n\n")
     groups = CF.person_group.lists()
     for index in groups:
        print(index["name"])
@@ -103,17 +131,35 @@ def verify_face():
             rate_confidence = CF.face.verify(face_id = req_face_id, person_group_id=group_to_train, person_id= index["personId"])
             print(index["name"] + " : "+str(100*rate_confidence["confidence"]) + "% similar")
             if(rate_confidence["isIdentical"] == True):
+                isIdentified = True
                 print("Person verified is " + index["name"])
                 print(rate_confidence["confidence"]*100)
+                speak_text = "HELLO! THE FACE IDENTIFIED IS OF THE PERSON " + index["name"]
+                language = 'en'
+                myobj = gTTS(text=speak_text, lang=language, slow=False)
+                myobj.save("identifed.mp3")
+                os.system("mpg321 identifed.mp3")
     else:
         choose_again = input("Choose group again? ")
         if choose_again == "Yes" or choose_again == "Y" or choose_again == "T":
             print("")
             print("")
             verify_face()
+    if isIdentified == False:
+        print("Person not identifed")
+        speak_text = "HELLO! INTRUDER ALERT! INTRUDER ALERT! INTRUDER ALERT!"
+        language = 'en'
+        myobj = gTTS(text=speak_text, lang=language, slow=False)
+        myobj.save("unidentifed.mp3")
+        os.system("mpg321 unidentifed.mp3")
 
 def add_face():
-    print("ADD FACE \n\n")
+    speak_text = "PLEASE ADD FACE"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("add_face.mp3")
+    os.system("mpg321 add_face.mp3")
+    print("ADD FACE\n\n")
     print("Choose which group you want to add the face to : ")
     groups = CF.person_group.lists()
     for index in groups:
@@ -166,14 +212,16 @@ def add_face_to_group(req_group_name):
                         add_face_to_person(req_group_name,req_person_id,req_name)
 
 
-
-
-
 def add_face_to_person(req_group_name,req_person_id,req_name):
     img_link = input("Choose image link to insert : ")
     CF.person.add_face(img_link,req_group_name,req_person_id)
     print("Face added to person " + req_name)
     print("")
+    speak_text = "HELLO! FACE HAS BEEN ADDED TO PERSON " + req_name
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("face_aaded.mp3")
+    os.system("mpg321 face_aaded.mp3")
 
 
 '''
@@ -193,7 +241,12 @@ for index in people_in_group:
 
 continue_UI = True
 while(continue_UI):
-    print("\nWELCOME TO FACE RECOGNITION UI")
+    speak_text = "HELLO! WELCOME TO FACE RECOGNITION UI"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("welcome.mp3")
+    os.system("mpg321 welcome.mp3")
+    print("\n" + speak_text)
     print("Choose one of the options")
     print("")
     print("1.Add person to a person group")
@@ -219,6 +272,11 @@ while(continue_UI):
         print("EXITING UI")
         time.sleep(1)
         continue_UI=False
+        speak_text = "LEAVING UI! THANK YOU"
+        language = 'en'
+        myobj = gTTS(text=speak_text, lang=language, slow=False)
+        myobj.save("exit.mp3")
+        os.system("mpg321 exit.mp3")
     else:
         print("Re-enter option\n\n")
 
