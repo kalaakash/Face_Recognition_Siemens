@@ -245,7 +245,7 @@ while(continue_UI):
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("welcome.mp3")
-    os.system("mpg321 welcome.mp3 > /dev/null 2>&1")
+    os.system("mpg321 welcome.mp3")
     print("\n" + speak_text)
     print("Choose one of the options")
     print("")
