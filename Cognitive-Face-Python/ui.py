@@ -26,7 +26,7 @@ def add_person():
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("add.mp3")
-    os.system("mpg321 add.mp3")
+    os.system("mpg321 add.mp3 > /dev/null 2>&1")
     print("ADD PERSON\n\n")
     print("Choose which group you want to add the person to : ")
     groups = CF.person_group.lists()
@@ -52,7 +52,7 @@ def add_person():
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("added.mp3")
-        os.system("mpg321 added.mp3")
+        os.system("mpg321 added.mp3 > /dev/null 2>&1")
         add_face()
     else:
         choose_again = input("Choose group again? ")
@@ -67,7 +67,7 @@ def train_group():
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("train.mp3")
-    os.system("mpg321 train.mp3")
+    os.system("mpg321 train.mp3 > /dev/null 2>&1")
     print("TRAIN GROUP\n\n")
     global do_train
     groups = CF.person_group.lists()
@@ -91,7 +91,7 @@ def train_group():
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("trained.mp3")
-        os.system("mpg321 trained.mp3")
+        os.system("mpg321 trained.mp3 > /dev/null 2>&1")
     else:
         choose_again = input("Choose group again? ")
         if choose_again == "Yes" or choose_again == "Y" or choose_again == "T":
@@ -105,7 +105,7 @@ def verify_face():
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("identify.mp3")
-    os.system("mpg321 identify.mp3")
+    os.system("mpg321 identify.mp3 > /dev/null 2>&1")
     print(speak_text + "\n\n")
     groups = CF.person_group.lists()
     for index in groups:
@@ -138,7 +138,7 @@ def verify_face():
                 language = 'en'
                 myobj = gTTS(text=speak_text, lang=language, slow=False)
                 myobj.save("identifed.mp3")
-                os.system("mpg321 identifed.mp3")
+                os.system("mpg321 identifed.mp3 > /dev/null 2>&1")
     else:
         choose_again = input("Choose group again? ")
         if choose_again == "Yes" or choose_again == "Y" or choose_again == "T":
@@ -151,14 +151,14 @@ def verify_face():
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("unidentifed.mp3")
-        os.system("mpg321 unidentifed.mp3")
+        os.system("mpg321 unidentifed.mp3 > /dev/null 2>&1")
 
 def add_face():
     speak_text = "PLEASE ADD FACE"
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("add_face.mp3")
-    os.system("mpg321 add_face.mp3")
+    os.system("mpg321 add_face.mp3 > /dev/null 2>&1")
     print("ADD FACE\n\n")
     print("Choose which group you want to add the face to : ")
     groups = CF.person_group.lists()
@@ -221,7 +221,7 @@ def add_face_to_person(req_group_name,req_person_id,req_name):
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("face_aaded.mp3")
-    os.system("mpg321 face_aaded.mp3")
+    os.system("mpg321 face_aaded.mp3  > /dev/null 2>&1")
 
 
 '''
@@ -245,7 +245,7 @@ while(continue_UI):
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("welcome.mp3")
-    os.system("mpg321 welcome.mp3")
+    os.system("mpg321 welcome.mp3 > /dev/null 2>&1")
     print("\n" + speak_text)
     print("Choose one of the options")
     print("")
@@ -276,7 +276,7 @@ while(continue_UI):
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("exit.mp3")
-        os.system("mpg321 exit.mp3")
+        os.system("mpg321 exit.mp3 > /dev/null 2>&1")
     else:
         print("Re-enter option\n\n")
 
