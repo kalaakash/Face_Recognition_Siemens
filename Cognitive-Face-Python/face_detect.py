@@ -3,13 +3,13 @@ import requests
 from io import BytesIO
 from PIL import Image, ImageDraw
 '''
-import pandas as pd
+#import pandas as pd
 import cognitive_face as CF
 
 # Replace with a valid subscription key (keeping the quotes in place).
 
-key_data=pd.read_csv("key_data.txt", delim_whitespace=True, skipinitialspace=True)
-KEY = key_data.columns[0]
+#key_data=pd.read_csv("key_data.txt", delim_whitespace=True, skipinitialspace=True)
+KEY = '133c00807b324b808eedb2d2c9d9480a'
 CF.Key.set(KEY)
 
 # Replace with your regional Base URL
