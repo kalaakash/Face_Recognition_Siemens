@@ -1,11 +1,12 @@
-import pandas as pd
+#import pandas as pd
 import time
 import cognitive_face as CF
 
 # Replace with a valid subscription key (keeping the quotes in place).
 
-key_data=pd.read_csv("key_data.txt", delim_whitespace=True, skipinitialspace=True)
-KEY = key_data.columns[0]
+#key_data=pd.read_csv("key_data.txt", delim_whitespace=True, skipinitialspace=True)
+key_dat = open('key_data.txt',mode='r')
+KEY = key_dat.read()
 CF.Key.set(KEY)
 
 # Replace with your regional Base URL
@@ -47,7 +48,7 @@ def add_person():
             print("")
             print("")
             add_person()
-        
+
 do_train = False
 def train_group():
     print("TRAIN GROUP \n\n")
@@ -75,9 +76,9 @@ def train_group():
             print("")
             print("")
             train_group()
-    
+
 def verify_face():
-    print("VERIFY PERSON \n\n") 
+    print("VERIFY PERSON \n\n")
     groups = CF.person_group.lists()
     for index in groups:
        print(index["name"])
@@ -100,7 +101,7 @@ def verify_face():
         people_in_group = CF.person.lists(group_to_train)
         for index in people_in_group:
             rate_confidence = CF.face.verify(face_id = req_face_id, person_group_id=group_to_train, person_id= index["personId"])
-            print(index["name"] + " : "+str(100*rate_confidence["confidence"]))
+            print(index["name"] + " : "+str(100*rate_confidence["confidence"]) + "% similar")
             if(rate_confidence["isIdentical"] == True):
                 print("Person verified is " + index["name"])
                 print(rate_confidence["confidence"]*100)
@@ -163,10 +164,10 @@ def add_face_to_group(req_group_name):
                     add_face_again = input("Put another image for same person? : ")
                     if add_face_again == "Yes" or add_face_again == "Y" or add_face_again == "T":
                         add_face_to_person(req_group_name,req_person_id,req_name)
-    
-    
-    
-        
+
+
+
+
 
 def add_face_to_person(req_group_name,req_person_id,req_name):
     img_link = input("Choose image link to insert : ")
