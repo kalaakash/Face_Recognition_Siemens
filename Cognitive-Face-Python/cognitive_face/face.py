@@ -51,7 +51,7 @@ def find_similars(face_id,
     """Given query face's `face_id`, to search the similar-looking faces from a
     `face_id` array, a `face_list_id` or a `large_face_list_id`.
 
-    Parameter `large_face_list_id`, `face_list_id` and `face_ids` should not be 
+    Parameter `large_face_list_id`, `face_list_id` and `face_ids` should not be
     provided at the same time.
 
     Args:
