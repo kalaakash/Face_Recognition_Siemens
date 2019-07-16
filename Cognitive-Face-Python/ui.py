@@ -3,6 +3,7 @@ import time
 import cognitive_face as CF
 from gtts import gTTS
 import os
+import random
 
 # Replace with a valid subscription key (keeping the quotes in place).
 
@@ -41,7 +42,6 @@ def add_person():
             correct_group = True
             print(index["name"] + " has beeen chosen")
         else:
-            correct_group = False
             print("No such group found")
     print(correct_group)
     if correct_group:
@@ -80,14 +80,11 @@ def train_group():
         if index["name"] == group_to_train:
             correct_group = True
             print(index["name"] + " has beeen chosen")
-        else:
-            correct_group = False
-            print("No such group found")
     print(correct_group)
     if correct_group:
         print("Training group " + group_to_train)
         CF.person_group.train(group_to_train)
-        speak_text = "HELLO! GROUP HAS BEEN TRAAINED"
+        speak_text = "HELLO! GROUP HAS BEEN TRAINED"
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("trained.mp3")
@@ -100,6 +97,22 @@ def train_group():
             train_group()
 
 def verify_face():
+    yes_zingers = [
+    "HELLO! YOU HAVE BEEN IDENTIFIED",
+    "OHHH! YOU HAVE BEEN GRANTED ACCESS TO THE SYSTEM",
+    "HELLO! ACCESS HAS BEEN GRANTED TO YOU",
+    "GOOD JOB, ACCESS HAS BEEN GIVEN TO YOU"
+    "WELL DONE! YOU ARE VERIFIED"
+    ]
+    no_zingers = [
+    "INTRUDER ALERT! INTRUDER ALERT! INTRUDER ALERT!",
+    "YOU HAVE NOT BEEN GRANTED ACCESS",
+    "ILLEGAL PERSON HAS ENTERED",
+    "NOT APPROVED HERE! PLEASE LEAVE",
+    "SECURITY! SECURITY! THIS PERSON IS NOT AUTHORIZED TO BE HERE"
+    ]
+    random_num = random.randint(0,4)
+    print(random_num)
     isIdentified = False
     speak_text = "HELLO! TIME TO IDENTIFY A FACE"
     language = 'en'
@@ -117,9 +130,6 @@ def verify_face():
         if index["name"] == group_to_train:
             correct_group = True
             print(index["name"] + " has beeen chosen")
-        else:
-            correct_group = False
-            print("No such group found")
     if correct_group:
         print(correct_group)
         img_link = input("Choose image link to verify : ")
@@ -134,7 +144,7 @@ def verify_face():
                 isIdentified = True
                 print("Person verified is " + index["name"])
                 print(rate_confidence["confidence"]*100)
-                speak_text = "HELLO! THE FACE IDENTIFIED IS OF THE PERSON " + index["name"]
+                speak_text = "HELLO! THE PERSON IS " + index["name"] + "......" + yes_zingers[random_num]
                 language = 'en'
                 myobj = gTTS(text=speak_text, lang=language, slow=False)
                 myobj.save("identifed.mp3")
@@ -147,7 +157,7 @@ def verify_face():
             verify_face()
     if isIdentified == False:
         print("Person not identifed")
-        speak_text = "HELLO! INTRUDER ALERT! INTRUDER ALERT! INTRUDER ALERT!"
+        speak_text = "HELLO!" + no_zingers[random_num]
         language = 'en'
         myobj = gTTS(text=speak_text, lang=language, slow=False)
         myobj.save("unidentifed.mp3")
@@ -171,11 +181,9 @@ def add_face():
     for index in groups:
         if index["name"] == req_group_name:
             correct_group = True
-            print(index["name"] + " has beeen chosen")
-        else:
-            correct_group = False
-            print("No such group found")
+            print(index["name"] + " has beeen chosen" + "Tareq was right")
     print(correct_group)
+    print(req_group_name)
     if correct_group:
         add_face_to_group(req_group_name)
     else:
@@ -223,6 +231,21 @@ def add_face_to_person(req_group_name,req_person_id,req_name):
     myobj.save("face_aaded.mp3")
     os.system("mpg321 face_aaded.mp3  > /dev/null 2>&1")
 
+def add_group():
+    speak_text = "HELLO! PLEASE ADD GROUP"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("add_grp.mp3")
+    os.system("mpg321 add_grp.mp3 > /dev/null 2>&1")
+    print("ADD GROUP\n\n")
+    req_group_name = input("Enter name : ")
+    CF.person_group.create(person_group_id = req_group_name, name=req_group_name, user_data="Data and images for the person with name " + req_group_name)
+    speak_text = "HELLO! THE GROUP HAS BEEN ADDED"
+    language = 'en'
+    myobj = gTTS(text=speak_text, lang=language, slow=False)
+    myobj.save("added_grp.mp3")
+    os.system("mpg321 added_grp.mp3 > /dev/null 2>&1")
+    print("ADDED GROUP\n\n")
 
 '''
 img_link = input("Choose image link to verify : ")
@@ -241,11 +264,12 @@ for index in people_in_group:
 
 continue_UI = True
 while(continue_UI):
+    os.system("clear")
     speak_text = "HELLO! WELCOME TO FACE RECOGNITION UI"
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("welcome.mp3")
-    os.system("mpg321 welcome.mp3")
+    os.system("mpg321 welcome.mp3 > /dev/null 2>&1")
     print("\n" + speak_text)
     print("Choose one of the options")
     print("")
@@ -253,7 +277,8 @@ while(continue_UI):
     print("2.Add face to person")
     print("3.Train person group")
     print("4.Identify person in image")
-    print("5.Exit")
+    print("5.Add group")
+    print("6.Exit")
     print("")
     num_sel = int(input("Choose option no. : "))
     if num_sel==1:
@@ -268,7 +293,10 @@ while(continue_UI):
     elif num_sel ==4:
         verify_face()
         time.sleep(3)
-    elif num_sel==5:
+    elif num_sel ==5:
+        add_group()
+        time.sleep(3)
+    elif num_sel==6:
         print("EXITING UI")
         time.sleep(1)
         continue_UI=False

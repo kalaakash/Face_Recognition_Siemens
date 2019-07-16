@@ -34,8 +34,7 @@ def detect(image, face_id=True, landmarks=False, attributes=''):
     params = {
         'returnFaceId': face_id and 'true' or 'false',
         'returnFaceLandmarks': landmarks and 'true' or 'false',
-        'returnFaceAttributes': attributes,
-        'recognitionModel' : 'recognition_02'
+        'returnFaceAttributes': attributes
     }
 
     return util.request(
