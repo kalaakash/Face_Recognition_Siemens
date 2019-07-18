@@ -239,13 +239,18 @@ def add_group():
     os.system("mpg321 add_grp.mp3 > /dev/null 2>&1")
     print("ADD GROUP\n\n")
     req_group_name = input("Enter name : ")
-    CF.person_group.create(person_group_id = req_group_name, name=req_group_name, user_data="Data and images for the person with name " + req_group_name)
-    speak_text = "HELLO! THE GROUP HAS BEEN ADDED"
+    confirm_entry_grp = input("Are you sure you want to enter new person group with name " + req_group_name + "?\n")
+    if confirm_entry_grp == "Yes" or confirm_entry_grp == "y" or confirm_entry_grp == "Y" or confirm_entry_grp == "T":
+        speak_text = "HELLO! THE GROUP HAS NOT BEEN ADDED"
+        print(speak_text)
+        CF.person_group.create(person_group_id = req_group_name, name=req_group_name, user_data="Data and images for the person with name " + req_group_name)
+    else:
+        print("Group has NOT been entered")
+        speak_text = "HELLO! THE GROUP HAS NOT BEEN ADDED"
     language = 'en'
     myobj = gTTS(text=speak_text, lang=language, slow=False)
     myobj.save("added_grp.mp3")
     os.system("mpg321 added_grp.mp3 > /dev/null 2>&1")
-    print("ADDED GROUP\n\n")
 
 '''
 img_link = input("Choose image link to verify : ")
