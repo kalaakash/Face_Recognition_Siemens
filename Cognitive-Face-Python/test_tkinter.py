@@ -5,10 +5,8 @@ m.title('Face Recognition UI')
 Label(m, text='Name of group ').grid(row=0)
 e1 = Entry(m)
 e1.grid(row=0, column=1)
-#button_1 = tk.Button(m, text='Add stuff', width=25, height=15, command=m.destroy)
-#button_1.pack()
 m.mainloop()
-os.system("clear")
+print(e1)
 
 '''
 from tkinter import *
